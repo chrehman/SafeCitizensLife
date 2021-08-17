@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "892516878198",
+    "firebase_url": "https://safe-citizen-life-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "safe-citizen-life",
+    "storage_bucket": "safe-citizen-life.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:892516878198:android:5c4586a17beeef15405c57",
+        "android_client_info": {
+          "package_name": "com.safecitizenslife"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "892516878198-0949c2fao904f63566l78nndhf3s0q10.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChMc-2ui9MOGbq-GjeCjRT6i19YdtxMjc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "892516878198-0949c2fao904f63566l78nndhf3s0q10.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "892516878198-ri1rl5t860c6gks3becf4otgegcqjbbi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.safecitizenlife"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
