@@ -1,0 +1,19 @@
+module.exports={
+    LOGIN:"login",
+    SIGNUP:"signup",
+    MAP:'map',
+    PROFILE:'profile',
+    COURSE:'course',
+    HOME:'home',
+    TAB:'TAB',
+    ONBOARDING:"onboarding",
+    DRAWER:"Drawer",
+    FORGET_PASSWORD:"forgetPassword",
+    RESET_PASSWORD:"resetPassword",
+    RESET_EMAIL:"resetEmail",
+    EDIT_PROFILE:"editProfile",
+    PROFILE_DRAWER:"profileDrawer",
+    STATUS:"status",
+    MAP_DRAWER:'mapDrawer'
+    
+}

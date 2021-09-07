@@ -36,7 +36,17 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Location access is required to run the app</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Location access always allow</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Location access allow always when ap used</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Safe Citizens Life app requires photo library access.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Safe Citizens Life app requires camera access to take photo.</string>
+	<key>NSMicrophoneUsageDescriptio</key>
+	<string>Safe Citizens Life app requires microphone access to use microphone.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -69,7 +79,36 @@
 		<string>Octicons.ttf</string>
 		<string>Zocial.ttf</string>
 		<string>Fontisto.ttf</string>
+		<string>Roboto-Black.ttf</string>
+		<string>Roboto-BlackItalic.ttf</string>
+		<string>Roboto-Bold.ttf</string>
+		<string>Roboto-BoldItalic.ttf</string>
+		<string>Roboto-Italic.ttf</string>
+		<string>Roboto-Light.ttf</string>
+		<string>Roboto-LightItalic.ttf</string>
+		<string>Roboto-Medium.ttf</string>
+		<string>Roboto-MediumItalic.ttf</string>
+		<string>Roboto-Regular.ttf</string>
+		<string>Roboto-Thin.ttf</string>
+		<string>Roboto-ThinItalic.ttf</string>
+		<string>Montserrat-Black.ttf</string>
+		<string>Montserrat-BlackItalic.ttf</string>
+		<string>Montserrat-Bold.ttf</string>
+		<string>Montserrat-BoldItalic.ttf</string>
+		<string>Montserrat-ExtraBold.ttf</string>
+		<string>Montserrat-ExtraBoldItalic.ttf</string>
+		<string>Montserrat-ExtraLight.ttf</string>
+		<string>Montserrat-ExtraLightItalic.ttf</string>
+		<string>Montserrat-Italic.ttf</string>
+		<string>Montserrat-Light.ttf</string>
+		<string>Montserrat-LightItalic.ttf</string>
+		<string>Montserrat-Medium.ttf</string>
+		<string>Montserrat-MediumItalic.ttf</string>
+		<string>Montserrat-Regular.ttf</string>
+		<string>Montserrat-SemiBold.ttf</string>
+		<string>Montserrat-SemiBoldItalic.ttf</string>
+		<string>Montserrat-Thin.ttf</string>
+		<string>Montserrat-ThinItalic.ttf</string>
 	</array>
-
 </dict>
 </plist>
