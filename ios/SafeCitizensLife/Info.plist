@@ -36,7 +36,6 @@
 			<string>localhost</string>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<string>NSExceptionAllowsInsecureHTTPLoads</string>
 				<true/>
 			</dict>
 		</dict>
