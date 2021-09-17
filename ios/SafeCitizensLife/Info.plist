@@ -34,7 +34,6 @@
 		<dict>
 			<key>localhost</key>
 			<string>localhost</string>
-			<string>NSExceptionAllowsInsecureHTTPLoads</string>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<string>NSExceptionAllowsInsecureHTTPLoads</string>
