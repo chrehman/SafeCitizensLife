@@ -13,11 +13,6 @@ import {
 } from '../Screens'
 
 
-const DummyScreen = (props) => (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: "center" }}>
-        <Text>{props.name}</Text>
-    </View>
-)
 
 const DrawerRoutes = () => {
     const Drawer = createDrawerNavigator();
@@ -27,6 +22,7 @@ const DrawerRoutes = () => {
             screenOptions={{
                 drawerStyle: {
                     paddingTop: scale(0),
+                    marginTop: scale(0),
                     borderTopRightRadius: scale(30),
                     borderBottomRightRadius: scale(30),
                 },

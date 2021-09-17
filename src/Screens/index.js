@@ -10,3 +10,6 @@ export {default as EditProfile} from './EditProfile'
 export {default as ResetEmail} from './ResetEmail'
 export {default as ResetPassword} from './ResetPassword'
 export {default as Status} from './Status'
+export {default as MapBox} from './MapBox'
+export {default as SplashScreen} from './SplashScreen'
+

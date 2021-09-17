@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { StatusBar, FlatList, StyleSheet, Text, View, Modal, TouchableOpacity, Image } from 'react-native'
 import { scale } from 'react-native-size-matters';
 import colors from '../styles/colors';
@@ -7,6 +7,11 @@ import fontFamily from '../styles/fontFamily';
 import { verticalScale } from '../styles/responsiveSize';
 import imagePath from '../constants/imagePath';
 import { Input } from 'react-native-elements';
+import { getChatMessages } from '../services/Store';
+import { showError, showSuccess } from '../helper/helperFunctions';
+import { addChatMessage } from './../services/Store/index';
+import { sendAlert } from '../services/CloudMessaging';
+import { useSelector } from 'react-redux';
 
 
 
@@ -18,52 +23,95 @@ const MessageModel = ({
 }) => {
     const [text, setText] = useState('')
     const [selectedId, setSelectedId] = useState(null);
-    const DATA = [
-        {
-            id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-            title: "First Item item sasa assad sdsad sadsadsa sadsadsad sadsadsa assas asss ddasdsa sadsad",
-        },
-        {
-            id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-            title: "Second Item",
-        },
-        {
-            id: "58694a0f-3da1-471f-bd96-145571e29d72",
-            title: "Third Item",
-        },
-        {
-            id: "3ac6ww8afc-c605-48d3-a4f8-fbd91aa97f63",
-            title: "Second Item",
-        },
-        {
-            id: "58694awwqq0f-3da1-471f-bd96-145571e29d72",
-            title: "Third Item",
-        },
-        {
-            id: "58694a0saddadaf-3da1-471f-bd96-145571e29d72",
-            title: "Third Item",
-        },
-        {
-            id: "3ac6ww8aafc-c605-48d3-a4f8-fbd91aa97f63",
-            title: "Second Item",
-        },
-        {
-            id: "58694awwq22q0f-3da1-471f-bd96-145571e29d72",
-            title: "Third dsfdsfItem",
-        },
-    ];
-    const renderItem = ({ item }) => {
+    const [messages, setMessages] = useState([]);
+
+    const userId = useSelector((state) => {
+        console.log(state.login.data.userId)
+
+
+        return state.login.data.userId
+        // return "sadads"
+    })
+
+    useEffect(() => {
+        getChatMessages("sads", "dsadsd")
+            .onSnapshot((snapshot) => {
+                // console.log(snapshot)
+                setMessages(snapshot.docs.map(doc => doc.data()))
+            })
+
+        return () => {
+            console.log("unmount")
+            setMessages([])
+        }
+    }, [])
+
+    // useEffect(() => {
+    //     flatListRef.current.scrollToEnd({animated: true})
+    // }, [messages])
+
+    console.log("MESSSAGESSSS", messages.length)
+    const renderMessage = ({ item }) => {
+        // console.log("item")
         const backgroundColor = 'rgba(156, 255, 172,0.25)';
-                const color = colors.green;
-                const calculateWidth=(item.title.length*11)
+        const color = colors.green;
+        // const calculateWidth=(item.title.length*11)
         return (
-            <View style={{alignSelf:'flex-end'}}>
-                <View style={{ ...styles.item, backgroundColor,alignSelf:'flex-start'}}>
-                    <Text style={{ ...styles.title, color }}>{item.title}</Text>
+            <View style={{ alignSelf: item.uid === "123" ? 'flex-start' : 'flex-end' }}>
+                <View style={{ ...styles.item, backgroundColor, alignSelf: 'flex-start' }}>
+                    <Text style={{ ...styles.title, color }}>{item.text}</Text>
                 </View>
             </View>
         );
-    };
+    }
+
+    const FlatListMessage=React.memo(({messages})=>{
+        useEffect(() => {
+            console.log("FLatLISt")
+        })
+        return(
+            
+            <FlatList
+
+            data={messages}
+            renderItem={renderMessage}
+            keyExtractor={(message, index) => index}
+            inverted
+
+        />
+        )})
+
+    const sendMessage = () => {
+        if (text.trim() === '') {
+            showError(
+                'Please enter message',
+            )
+        }
+        else {
+            console.log("text", text.trim())
+            addChatMessage("sads", "dsadsd", text.trim())
+                .then(() => {
+                    showSuccess("Message Send")
+                    sendAlert(userId,{
+                        title: "New Message",
+                        text: text.trim(),
+                    })
+                    .then(() => {
+                        console.log("alert sent")
+                    })
+                    .catch((err) => {
+                        console.log("alert not sent")
+                        console.log(err)
+                    })
+                    setText('')
+                })
+                .catch(() => {
+                    showError("Message not send")
+                })
+            setText('')
+        }
+
+    }
     return (
         <Modal transparent animationType="fade">
             <View style={styles.container}>
@@ -89,20 +137,14 @@ const MessageModel = ({
                     >
                         <Text
                             style={{
-                                ...commonStyles.fontSize12,
+                                fontSize: scale(10),
                                 fontFamily: fontFamily.bold,
                                 color: colors.green,
                                 textTransform: 'uppercase',
                             }}
-                        >Abdul Hadi - Assigned User    </Text>
+                        >Abdul Rahman - Assigned Responder    </Text>
                     </View>
-
-                    <FlatList
-                        data={DATA}
-                        renderItem={renderItem}
-                        keyExtractor={(item) => item.id}
-                        initialScrollIndex={DATA.length - 1}
-                    />
+                            <FlatListMessage messages={messages}/>
 
                     <View
                         style={{
@@ -149,8 +191,6 @@ const MessageModel = ({
                                     height: 20,
                                     color: colors.white,
                                     fontSize: scale(8),
-
-
                                 }}
                                 containerStyle={{
                                     borderBottomWidth: 0,
@@ -165,7 +205,7 @@ const MessageModel = ({
                             />
                         </View>
                         <TouchableOpacity
-                            onPress={() => setText('')}
+                            onPress={() => sendMessage()}
                         >
                             <Image source={imagePath.sendIcon} style={{ width: scale(20), height: scale(20), marginLeft: scale(10) }} />
                         </TouchableOpacity>
@@ -270,7 +310,7 @@ const styles = StyleSheet.create({
     },
     item: {
         padding: scale(10),
-        marginVertical: verticalScale(6),
+        marginVertical: scale(5),
         marginHorizontal: scale(10),
     },
     title: {

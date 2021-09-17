@@ -44,6 +44,8 @@ import { applyCitizen, getCitizenEmail, getCitizenCnic } from './../../services/
 import { cleanSingle } from 'react-native-image-crop-picker';
 import { showError, showSuccess } from '../../helper/helperFunctions';
 
+
+
 const Signup = ({ navigation }) => {
     const [showPassword, setShowPassword] = useState(true)
     const [showConfirmPassword, setShowConfirmPassword] = useState(true)
@@ -55,7 +57,10 @@ const Signup = ({ navigation }) => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
+    const dispatch=useDispatch();
+    
     const onChange = (event, selectedDate, handleChange) => {
         // console.log("Current", selectedDate)
         if (selectedDate) {
@@ -64,14 +69,11 @@ const Signup = ({ navigation }) => {
             setCurrentDate(currentDate);
             // console.log(show)
             // console.log(currentDate)
-            console.log(new Date(currentDate).toISOString().split('T')[0]);
+            // console.log(new Date(currentDate).toISOString().split('T')[0]);
             handleChange('dob')(new Date(currentDate).toISOString().split('T')[0])
         } else {
             setShow(false);
-
         }
-
-
     };
 
     const showMode = (currentMode) => {
@@ -87,10 +89,10 @@ const Signup = ({ navigation }) => {
             initialValues={{
                 firstName: 'Abdul',
                 lastName: 'Rahman',
-                email: 'Xyzs@inbo1xbear.com',
-                password: 'Abc@1234',
-                confirmPassword: 'Abc@1234',
-                cnic: '12345-1234454-1',
+                email: 'chrehman1998@gmail.com',
+                password: 'Rehman@1234',
+                confirmPassword: 'Rehman@1234',
+                cnic: '12345-1134454-1',
                 address: 'asa',
                 city: 'rwp',
                 country: 'Pakistan',
@@ -103,6 +105,7 @@ const Signup = ({ navigation }) => {
             onSubmit={async (values, { setSubmitting }) => {
                 // console.log(values)
                 // dispatch(login(values))
+                setIsLoading(true)
                 getCitizenEmail(values.email)
                     .then(snapshot => {
                         if (snapshot.empty) {
@@ -111,46 +114,41 @@ const Signup = ({ navigation }) => {
                                     if (snapshot.empty) {
                                         applyCitizen(values)
                                             .then(() => {
+                                                setIsLoading(false)
                                                 console.log('User added!');
                                                 showSuccess(strings.SUCCESSFULLY_APPLIED)
-                                                // return true
+                                                dispatch(login(values))
+                                                
                                             })
                                             .catch(error => {
+                                                setIsLoading(false)
                                                 console.log('Error adding user: ', error);
-                                                Alert.alert("Error", error.message)
+                                                // Alert.alert("Error", error.message)
+                                                showError(error.message)
                                             })
                                             
                                         
                                     }
-                                    else {
-                                        // Alert.alert(
-                                        //     'Cnic already exist',
-                                        //     'Please try another cnic',
-                                        //     [
-                                        //         { text: 'OK', onPress: () => console.log('OK Pressed') },
-                                        //     ]
-                                        // );
+                                    else{
+                                        setIsLoading(false)
                                         console.log('Cnic already exist')
                                         showError(strings.CNIC_ALREADY_EXIST)
                                     }
                                 })
                                 .catch(error => {
+                                    setIsLoading(false)
                                     console.log(error)
+                                    showError(error.message)
                                 })
                         } else {
-                            // Alert.alert(
-                            //     'Email already exist',
-                            //     'Please try another email',
-                            //     [
-                            //         { text: 'OK', onPress: () => console.log('OK Pressed') },
-                            //     ],
-                            // );
+                            setIsLoading(false)
                             showError(strings.EMAIL_ALREADY_EXIST)
                         }
                     })
                     .catch(error => {
+                        setIsLoading(false)
                         console.log(error);
-                        return error
+                        showError(error.message)
                     })
                 // console.log(emailExist, "email")
                 setSubmitting(false);
@@ -158,7 +156,7 @@ const Signup = ({ navigation }) => {
             validationSchema={signupValidationSchema}
         >
             {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isSubmitting, isValid }) => (
-                <WrapperContainer  >
+                <WrapperContainer isLoading={isLoading} >
                     <ScrollView style={{ ...styles.scrollContainer }}
                         showsVerticalScrollIndicator={false}
                         nestedScrollEnabled={true}

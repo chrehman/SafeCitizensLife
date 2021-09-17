@@ -4,11 +4,13 @@ buildscript {
     ext {
         buildToolsVersion = "29.0.3"
         minSdkVersion = 21
-        compileSdkVersion = 29
-        targetSdkVersion = 29
+        compileSdkVersion = 30
+        targetSdkVersion = 30
         playServicesVersion = "17.0.0" // or find latest version
         androidMapsUtilsVersion = "2.2.0"
         ndkVersion = "20.1.5948944"
+        googlePlayServicesVersion = "+" // default: "+"
+        firebaseMessagingVersion = "21.1.0" // default: "21.1.0"
     }
     repositories {
         google()
@@ -17,6 +19,7 @@ buildscript {
     dependencies {
         classpath("com.android.tools.build:gradle:4.1.0")
         classpath 'com.google.gms:google-services:4.3.10'
+        // classpath('com.google.gms:google-services:4.3.3')
         // Add me --- /\
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -40,7 +43,19 @@ allprojects {
         maven { url 'https://www.jitpack.io' }
          // ADD THIS
         maven { url 'https://maven.google.com' }
-
+        maven {
+            url 'https://api.mapbox.com/downloads/v2/releases/maven'
+            authentication {
+                basic(BasicAuthentication)
+            }
+            credentials {
+                // Do not change the username below.
+                // This should always be `mapbox` (not your username).
+                username = "mapbox"
+                // Use the secret token you stored in gradle.properties as the password
+                password = project.properties['MAPBOX_DOWNLOADS_TOKEN'] ?: ""
+            }
+        }
       
     }
 }

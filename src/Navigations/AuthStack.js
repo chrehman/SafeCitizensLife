@@ -7,7 +7,8 @@ import {
     Login,
     Onboarding,
     ForgetPassword,
-    Status
+    Status,
+    SplashScreen
 } from '../Screens'
 
 
@@ -21,7 +22,14 @@ const AuthStack = ({ firstLaunch }) => {
                     screenOptions={{
                         headerShown: false,
                     }}
+                    initialRouteName={navigationStrings.splashScreen}
                 >
+                    <Stack.Screen
+                        name={navigationStrings.splashScreen}
+                        
+                    >
+                        {() => SplashScreen(navigationStrings.ONBOARDING)}
+                    </Stack.Screen>
                     <Stack.Screen
                         name={navigationStrings.ONBOARDING}
                         component={Onboarding}
@@ -46,7 +54,14 @@ const AuthStack = ({ firstLaunch }) => {
                     screenOptions={{
                         headerShown: false,
                     }}
+                    initialRouteName={navigationStrings.splashScreen}
                 >
+                    <Stack.Screen
+                        name={navigationStrings.splashScreen}
+                        
+                    >
+                        {() => SplashScreen(navigationStrings.LOGIN)}
+                    </Stack.Screen>
                     <Stack.Screen
                         name={navigationStrings.LOGIN}
                         component={Login}

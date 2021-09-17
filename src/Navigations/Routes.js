@@ -4,18 +4,22 @@ import { NavigationContainer, useNavigationState } from '@react-navigation/nativ
 
 import AuthStack from './AuthStack';
 import MainStack from './MainStack';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import DrawerRoutes from './DrawerRoutes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { fetchUser } from '../redux/Slices/Login/loginSlice';
+import { SplashScreen } from '../Screens';
 
 
 
 const Routes = () => {
     // const [isLogin, setIsLogin] = useState(false)
     const [firstLaunch, setFirstLaunch] = useState(null)
-        const isLogin = useSelector((state) => {
+    const [uid, setUid] = useState(null)
+    const dispatch=useDispatch()
+    const login = useSelector((state) => {
         // console.log(state.login.isLogin)
-        return state.login.isLogin
+        return state.login
     })
 
     useEffect(() => {
@@ -27,18 +31,28 @@ const Routes = () => {
                 setFirstLaunch(true)
             }
         })
-    },[]);
-    if(firstLaunch===null){
+        AsyncStorage.getItem('uid').then(value => {
+            console.log("Userid",value)
+            if(value){
+                setUid(value)
+                dispatch(fetchUser(value))
+            }
+        })
+    }, []);
+    if (firstLaunch === null) {
         return null
+    }
+    if(login.isLoading){
+        return <SplashScreen/>
     }
     return (
         <NavigationContainer>
-                {true ?
-                    <DrawerRoutes/>
-                    :
-                    <AuthStack firstLaunch={firstLaunch}/>
-                }
-            
+            {true ?
+                <DrawerRoutes />
+                :
+                <AuthStack firstLaunch={firstLaunch} />
+            }
+
         </NavigationContainer>
 
     )

@@ -28,4 +28,8 @@ export default{
     fireBrigadeIcon:require('../assets/images/icons/FIREBRIGADE.png'),
     messageGreenIcon:require('../assets/images/icons/MESSAGING2.png'),
     sendIcon:require('../assets/images/icons/SEND.png'),
+    distanceIcon:require('../assets/images/icons/distance.png'),
+    timerIcon:require('../assets/images/icons/timer.png'),
+    ambulanceTrackIcon:require('../assets/images/icons/AmbulanceTrack.png'),
+    splashScreen:require('../assets/images/logo/splashScreen.jpeg'),
 }

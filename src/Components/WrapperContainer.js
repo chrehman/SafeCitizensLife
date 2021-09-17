@@ -7,15 +7,15 @@ import Loader from './Loader';
 
 // create a component
 const WrapperContainer = ({
-    barStyle = "dark-content",
-    statusBarColor = colors.white,
+    barStyle = "light-content",
+    statusBarColor = "transparent",
     children,
     isLoading=false,
     style = {},
 }) => {
     return (
         <View style={{...styles.container, ...style}}>
-            <StatusBar barStyle={barStyle} backgroundColor={statusBarColor} />
+            <StatusBar backgroundColor={statusBarColor} translucent={true} barStyle={barStyle} />
             <SafeAreaView style={{flex:1}}>
                 {children}
             </SafeAreaView>

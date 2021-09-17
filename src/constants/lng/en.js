@@ -99,5 +99,17 @@ export default {
     SUCCESSFULLY_APPLIED:"Successfully Applied ",
     CNIC_ALREADY_EXIST:"Cnic already exist",
     EMAIL_ALREADY_EXIST:"Email already exist",
+    SUCCESSFULLY_LOGIN:"Successfully Login",
+    FEEDBACK_AND_SUPPORT:"Feedback and Support",
+    FEEDBACK:"Feedback",
+    REPORT_A_BUG:"Report a bug",
+    PRIVACY_AND_TERMS:"Privacy and Terms",
+    ABOUT_US:"About Us",
+    CONTACT_US:"Contact Us",
+    FAQS:"FAQs",
+    RATE_APP:"Rate APP",
+    SHARE_APP:"Share App",
+    PRIVACY_POLICY:"Privacy Policy",
+    TERMS_OF_SERVICE:"Terms of Service",
 
 }

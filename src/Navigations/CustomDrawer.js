@@ -14,7 +14,11 @@ import navigationStrings from '../constants/navigationStrings'
 
 const CustomDrawer = (props) => {
 
+    const [showSupport, setShowSupport] = useState(false)
 
+    const handleSupport = () => {
+        setShowSupport(!showSupport)
+    }
     return (
         <View style={{ flex: 1, }}>
             <DrawerContentScrollView {...props}>
@@ -36,41 +40,104 @@ const CustomDrawer = (props) => {
                     <View>
                         <DrawerRow
                             text={strings.HISTORY}
-                            onPress={() => props.navigation.navigate('History')}
+                            onPress={() =>{ 
+                                handleSupport()
+                                props.navigation.navigate('History')}}
                             imagePath={imagePath.historyIcon}
                         />
                         <DrawerRow
                             text={strings.PROFILE}
-                            onPress={() => props.navigation.navigate(navigationStrings.PROFILE_DRAWER)}
+                            onPress={() => {
+                                handleSupport()
+                                props.navigation.navigate(navigationStrings.PROFILE_DRAWER)}}
                             imagePath={imagePath.profileIcon}
                         />
                         <DrawerRow
                             text={strings.EDIT_EMAIL}
-                            onPress={() => props.navigation.navigate(navigationStrings.RESET_EMAIL)}
+                            onPress={() => {
+                                handleSupport()
+                                props.navigation.navigate(navigationStrings.RESET_EMAIL)}}
                             imagePath={imagePath.editEmailIcon}
                         />
                         <DrawerRow
                             text={strings.EDIT_PASSWORD}
-                            onPress={() => props.navigation.navigate(navigationStrings.RESET_PASSWORD)}
+                            onPress={() => {
+                                handleSupport()
+                                props.navigation.navigate(navigationStrings.RESET_PASSWORD)}}
                             imagePath={imagePath.editPasswordIcon}
                         />
                         <DrawerRow
-                            text={strings.SETTINGS}
-                            onPress={() => props.navigation.navigate('History')}
+                            text={strings.FEEDBACK_AND_SUPPORT}
+                            onPress={() => setShowSupport(!showSupport)}
                             imagePath={imagePath.settingsIcon}
                         />
-                        <DrawerRow
-                            text={strings.HELP}
-                            onPress={() => props.navigation.navigate('History')}
-                            imagePath={imagePath.helpIcon}
-                        />
+                        {showSupport && (
+                            <>
+                            <DrawerRow 
+                                rowStyle={styles.rowStyle}
+                                imageStyle={styles.imageStyle}
+                                textStyle={styles.textStyle}
+                                text={strings.FAQS}
+                                onPress={() => props.navigation.navigate('History')}
+                                imagePath={imagePath.helpIcon}
+                            />
+                            <DrawerRow 
+                                rowStyle={styles.rowStyle}
+                                imageStyle={styles.imageStyle}
+                                textStyle={styles.textStyle}
+                                text={strings.REPORT_A_BUG}
+                                onPress={() => props.navigation.navigate('History')}
+                                imagePath={imagePath.helpIcon}
+                            />
+                            <DrawerRow 
+                                rowStyle={styles.rowStyle}
+                                imageStyle={styles.imageStyle}
+                                textStyle={styles.textStyle}
+                                text={strings.ABOUT_US}
+                                onPress={() => props.navigation.navigate('History')}
+                                imagePath={imagePath.helpIcon}
+                            />
+                            <DrawerRow 
+                                rowStyle={styles.rowStyle}
+                                imageStyle={styles.imageStyle}
+                                textStyle={styles.textStyle}
+                                text={strings.RATE_APP}
+                                onPress={() => props.navigation.navigate('History')}
+                                imagePath={imagePath.helpIcon}
+                            />
+                            <DrawerRow 
+                                rowStyle={styles.rowStyle}
+                                imageStyle={styles.imageStyle}
+                                textStyle={styles.textStyle}
+                                text={strings.SHARE_APP}
+                                onPress={() => props.navigation.navigate('History')}
+                                imagePath={imagePath.helpIcon}
+                            />
+                            <DrawerRow 
+                                rowStyle={styles.rowStyle}
+                                imageStyle={styles.imageStyle}
+                                textStyle={styles.textStyle}
+                                text={strings.PRIVACY_POLICY}
+                                onPress={() => props.navigation.navigate('History')}
+                                imagePath={imagePath.helpIcon}
+                            />
+                            <DrawerRow 
+                                rowStyle={styles.rowStyle}
+                                imageStyle={styles.imageStyle}
+                                textStyle={styles.textStyle}
+                                text={strings.TERMS_OF_SERVICE}
+                                onPress={() => props.navigation.navigate('History')}
+                                imagePath={imagePath.helpIcon}
+                            />
+                            </>
+                        )}
                         <DrawerRow
                             text={strings.LEARN_TRAFFIC_RULES}
                             onPress={() => props.navigation.navigate('History')}
                             imagePath={imagePath.learnIcon}
                         />
                     </View>
-                    <View style={styles.footerContainer}>
+                    <View style={{marginTop:showSupport?scale(220-(25*7)):scale(240)}}>
                         <DrawerRow
                             text={strings.LOGOUT}
                             onPress={() => props.navigation.navigate('History')}
@@ -89,7 +156,7 @@ const styles = StyleSheet.create({
     linearGradient: {
         paddingVertical: scale(17),
         paddingHorizontal: scale(12),
-        marginTop: verticalScale(-4),
+        marginTop: verticalScale(-30),
         flexDirection: 'row',
         alignItems: 'center',
         flexWrap: 'wrap',
@@ -123,7 +190,7 @@ const styles = StyleSheet.create({
 
     },
     listContainer: {
-        paddingVertical: scale(40),
+        paddingVertical: scale(20),
         flex: 1,
         justifyContent: 'space-between',
     },
@@ -131,6 +198,18 @@ const styles = StyleSheet.create({
         width: scale(60),
         height: scale(60)
     },
-    footerContainer: { marginTop: verticalScale(170) }
+    rowStyle:{
+        paddingLeft:scale(40),
+        paddingVertical:scale(5),
+    },
+    textStyle:{
+        fontSize:scale(10),
+    },
+    imageStyle:{
+        width:scale(20),
+        height:scale(20),
+    }
+
+    // footerContainer: { marginTop: showSupport? scale(200) }
 
 })

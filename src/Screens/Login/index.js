@@ -32,6 +32,8 @@ import imagePath from '../../constants/imagePath';
 import { loginValidationSchema } from '../../utils/Validation';
 import { signin } from '../../services/Auth';
 import { showError, showSuccess } from '../../helper/helperFunctions';
+import { getCitizenInfo } from '../../services/Store';
+import  AsyncStorage  from '@react-native-async-storage/async-storage';
 
 
 
@@ -47,26 +49,32 @@ const Login = ({ navigation }) => {
     return (
         <Formik
             initialValues={{
-                email: '',
-                password: '',
+                email: 'chrehman1998@gmail.com',
+                password: 'Rehman@1234',
             }}
             onSubmit={async (values, { setSubmitting }) => {
                 signin(values.email, values.password)
                     .then((userCredential) => {
                         // Signed in
                         console.log('Login successful!');
-                        showSuccess(strings.SUCCESSFULLY_LOGIN)
-                        let user = userCredential.user;
-                        console.log("User Details", user);
-                        dispatch(login(user));
+                        let userId = userCredential.user.uid;
+                        getCitizenInfo(userId)
+                        .then((documentSnapshot) => {
+                            showSuccess(strings.SUCCESSFULLY_LOGIN)
+                            console.log("USER ID",typeof(userId))
+                            AsyncStorage.setItem('uid', userId);
+                            let userData = documentSnapshot.data()
+                            // console.log(userData)
+                            dispatch(login({userId,userData}))
+                        })
                         // dispatch(login());
                     })
                     .catch(error => {
                         // Handle Errors here.
                         let errorCode = error.code;
                         let errorMessage = error.message;
-                        showError("Error")
-                        Alert.alert("Error",errorMessage);
+                        showError(error.message)
+                        // Alert.alert("Error",errorMessage);
                         console.log(errorCode, errorMessage);
                     });
                 // dispatch(login(values))

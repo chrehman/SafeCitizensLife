@@ -1,10 +1,12 @@
-require_relative '../node_modules/react-native/scripts/react_native_pods'
-require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+require File.join(File.dirname(`node --print "require.resolve('react-native/package.json')"`), "scripts/react_native_pods")
+require File.join(File.dirname(`node --print "require.resolve('@react-native-community/cli-platform-ios/package.json')"`), "native_modules")
+require File.join(File.dirname(`node --print "require.resolve('react-native-unimodules/package.json')"`), "cocoapods")
 
-platform :ios, '10.0'
+platform :ios, '11.0'
 
 target 'SafeCitizensLife' do
   # React Native Maps dependencies
+  use_unimodules!
   rn_maps_path = '../node_modules/react-native-maps'
   pod 'react-native-google-maps', :path => rn_maps_path
   pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'

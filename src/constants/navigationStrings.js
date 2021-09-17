@@ -14,6 +14,7 @@ module.exports={
     EDIT_PROFILE:"editProfile",
     PROFILE_DRAWER:"profileDrawer",
     STATUS:"status",
-    MAP_DRAWER:'mapDrawer'
+    MAP_DRAWER:'mapDrawer',
+    splashScreen:"splashScreen",
     
 }

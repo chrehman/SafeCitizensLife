@@ -30,6 +30,7 @@ local.properties
 *.iml
 
 # node.js
+*.hprof
 #
 node_modules/
 npm-debug.log
